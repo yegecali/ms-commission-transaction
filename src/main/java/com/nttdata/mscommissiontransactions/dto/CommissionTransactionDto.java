@@ -10,5 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommissionTransactionDto {
-    private Double amount;
+    private String documentType;
+    private String numberDocument;
+    private String movementType;
+    private Float balance;
+    private Float commission;
 }

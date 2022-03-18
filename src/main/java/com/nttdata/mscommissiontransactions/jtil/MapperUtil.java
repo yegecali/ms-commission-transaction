@@ -1,4 +1,4 @@
-package com.nttdata.mscommissiontransactions.util;
+package com.nttdata.mscommissiontransactions.jtil;
 
 import org.modelmapper.ModelMapper;
 
