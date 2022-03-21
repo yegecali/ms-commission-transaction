@@ -24,7 +24,7 @@ public class CommissionTransactionsResource extends MapperUtil {
         return commissionTransactionsService.findAll().map(c -> map(c, CommissionTransactionDto.class));
     }
     
-    public Flux<CommissionTransactionDto> findCommissionOfRangeDateAndNow(LocalDateTime startDate, CommissionTransactionDto finishDate){
+    public Flux<CommissionTransactionDto> findCommissionOfRangeDateAndNow(LocalDateTime startDate){
     	return commissionTransactionsService.findAll()
     			.filter(c -> c.getCreatedAt().isAfter(LocalDateTime.now().withDayOfMonth(1)) && c.getCreatedAt().isBefore(LocalDateTime.now()))
     			.map(c -> map(c, CommissionTransactionDto.class));
