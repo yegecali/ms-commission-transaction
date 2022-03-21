@@ -4,6 +4,9 @@ import com.nttdata.mscommissiontransactions.dto.CommissionTransactionDto;
 import com.nttdata.mscommissiontransactions.entity.CommissionTransactions;
 import com.nttdata.mscommissiontransactions.jtil.MapperUtil;
 import com.nttdata.mscommissiontransactions.service.ICommissionTransactionsService;
+
+import java.time.LocalDateTime;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,18 @@ public class CommissionTransactionsResource extends MapperUtil {
 
     public Flux<CommissionTransactionDto> findAll(){
         return commissionTransactionsService.findAll().map(c -> map(c, CommissionTransactionDto.class));
+    }
+    
+    public Flux<CommissionTransactionDto> findCommissionOfRangeDateAndNow(LocalDateTime startDate, CommissionTransactionDto finishDate){
+    	return commissionTransactionsService.findAll()
+    			.filter(c -> c.getCreatedAt().isAfter(LocalDateTime.now().withDayOfMonth(1)) && c.getCreatedAt().isBefore(LocalDateTime.now()))
+    			.map(c -> map(c, CommissionTransactionDto.class));
+    }
+    
+    public Flux<CommissionTransactionDto> findCommissionOfRange(LocalDateTime startDate, LocalDateTime finishDate){
+    	return commissionTransactionsService.findAll()
+    			.filter(c -> c.getCreatedAt().isAfter(startDate) && c.getCreatedAt().isBefore(finishDate))
+    			.map(c -> map(c, CommissionTransactionDto.class));
     }
 
     public Mono<CommissionTransactionDto> createComssion( CommissionTransactionDto commissionDto ){
